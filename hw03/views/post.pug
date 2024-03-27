@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1=post.title
+  h2 글쓴이 #{post.user_name}
+  h3 작성시간: #{post.post_date.toLocaleString()}
+  hr
+  p 내용
+  p #{post.content}
+  br
+  a(href=`/posts/edit/${post.ID}`) 수정하기
+  a(href=`/posts/delete/${post.ID}` onclick="return confirm('정말 삭제하시겠습니까?');") 삭제하기
+  br
+  a(href="/") 돌아가기

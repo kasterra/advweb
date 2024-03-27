@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 게시글 수정하기
+  form(method="POST" action=`/posts/edit/${post.ID}`)
+    .form-group
+      label(for="user_name") 글쓴이
+      input(type="text" id="user_name" name="user_name" value=post.user_name required)
+    .form-group
+      label(for="title") 제목
+      input(type="text" id="title" name="title" value=post.title required)
+    .form-group
+      label(for="content") 내용
+      textarea(id="content" name="content" required)= post.content
+    button(type="submit") 수정 완료

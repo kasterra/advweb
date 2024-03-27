@@ -1,0 +1,65 @@
+extends layout
+
+
+block h
+  script.
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const limit = urlParams.get('limit') || '10'; // 기본값으로 '10'을 사용
+        const selectedLimit = document.querySelector(`input[name="limit"][value="${limit}"]`);
+        if (selectedLimit) {
+          selectedLimit.checked = true;
+        }
+        
+        // 라디오 버튼 값 변경 시 페이지 리다이렉트
+        document.querySelectorAll('input[name="limit"]').forEach(button => {
+          button.addEventListener('change', function() {
+            const currentUrl = new URL(window.location);
+            currentUrl.searchParams.set('limit', this.value);
+            window.location = currentUrl.href;
+          });
+        });
+      })
+
+block content
+  h1 게시판 목록
+  form#limitForm
+  label
+    input(type="radio" name="limit" value="10")
+    | 10개씩 보기
+  label
+    input(type="radio" name="limit" value="20")
+    | 20개씩 보기
+  label
+    input(type="radio" name="limit" value="30")
+    | 30개씩 보기
+  form(method="GET" action="/posts")
+  table(border="1")
+    thead
+      tr
+        th 글쓴이
+        th 제목
+        th 작성시간
+        th 수정?
+        th 삭제!
+    tbody
+      each post in posts
+        tr
+          td=post.user_name
+          td 
+            a(href=`/posts/${post.ID}`)= post.title
+          td= post.post_date.toLocaleString()
+          td
+            a(href=`/posts/edit/${post.ID}`) 수정하기
+          td
+            a(href=`/posts/delete/${post.ID}` onclick="return confirm('정말 삭제하시겠습니까?');") 삭제하기
+      else 
+        p 글이 없습니다!
+  br
+  ul.pagination
+  - var n = 1
+  while n <= totalPages
+    li
+      a(href=`/?page=${n}`)= `${n} page`
+      - n++
+  a(href="/new") 글쓰기
