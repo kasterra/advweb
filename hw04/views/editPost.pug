@@ -1,0 +1,21 @@
+extends layout
+
+block h
+  script(src="/javascripts/editPost.js") 
+
+block content
+  h1 게시글 수정하기
+  form(method="POST" enctype="multipart/form-data")
+    .form-group
+      label(for="user_name") 글쓴이
+      input(type="text" id="user_name" name="user_name" required)
+    .form-group
+      label(for="title") 제목
+      input(type="text" id="title" name="title" required)
+    .form-group
+      label(for="content") 내용
+      textarea(id="content" name="content" required)
+    .form-group
+      label(for="images") 이미지 첨부 (최대 2개)
+      input(type="file" id="images" name="images" accept="image/*" multiple)
+    button(type="submit") 수정 완료

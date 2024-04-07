@@ -1,0 +1,19 @@
+extends layout
+
+block h
+  script(src="/javascripts/readPost.js")
+
+block content
+  h1
+  h2 글쓴이 
+  h3 작성시간: 
+  hr
+  p 내용
+  p
+  br
+  h4 첨부된 이미지
+  div#images 이미지가 없습니다
+  a#edit 수정하기
+  a#delete 삭제하기
+  br
+  a(href="/") 돌아가기

@@ -1,0 +1,31 @@
+extends layout
+
+block h
+  script(src="/javascripts/mainpage.js") 
+
+block content
+  h1 게시판 목록
+  form#limitForm
+  label
+    input(type="radio" name="limit" value="10")
+    | 10개씩 보기
+  label
+    input(type="radio" name="limit" value="20")
+    | 20개씩 보기
+  label
+    input(type="radio" name="limit" value="30")
+    | 30개씩 보기
+  form(method="GET" action="/posts")
+  table(border="1")
+    thead
+      tr
+        th 글쓴이
+        th 제목
+        th 작성시간
+        th 수정?
+        th 삭제!
+    tbody
+  br
+  ul.pagination
+    li
+  a(href="/new") 글쓰기
